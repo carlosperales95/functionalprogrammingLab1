@@ -151,7 +151,7 @@ fun is_present (Node(a,[])) x = (a = x)
    TYPE: 'a ltree -> int
    PRE: t is an ltree 
    POST: height of the tree
-   EXAMPLES: height (Node (1, [Node (2, [])])) = 1;
+   EXAMPLES: height (Node (1, [Node (2, [])])) = 2;
 *)
 (* VARIANT: number of subtrees of t*)	
 fun height (Node(a,[])) = 1
