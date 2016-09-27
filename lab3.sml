@@ -31,13 +31,23 @@ EXAMPLE: average [1.00, 5.40, 3.10, 6.00] = 3,875
 
 (* append: 'a list -> 'a list -> 'a list *)
 
+fun append xs ys = foldr op:: ys xs;
+
 (* member: ''a -> ''a list -> bool *)
+
+fun member x xs = foldl (fn(y,l) => l orelse x=y) false xs;
 
 (* last: 'a list -> 'a *)
 
+fun last xs = foldl (fn (x,y) => x) (hd xs) xs;
+
 (* reverse: 'a list -> 'a list *)
 
+fun reverse xs = foldl op:: [] xs;
+
 (* filter: ('a -> bool) -> 'a list -> 'a list *)
+
+fun filter f xs = foldr (fn(y,l) => if f y then y::l else l) [] xs;
 
 
 (* TASK 4 *)
@@ -58,7 +68,12 @@ fun sub_tree a b (Void) = Void
 										then
 											Node (sub_tree a b l, x , sub_tree a b r)
 										else
-											sub_tree a b r
+											if (sub_tree a b r = Void)
+												then 
+													sub_tree a b l
+												else
+													sub_tree a b r
+											
 	| sub_tree a b (Node (Void, x ,r)) = if(comparing a b x)
 												then
 													Node (Void, x , sub_tree a b r)
