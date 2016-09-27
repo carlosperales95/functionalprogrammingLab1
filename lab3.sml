@@ -38,3 +38,34 @@ EXAMPLE: average [1.00, 5.40, 3.10, 6.00] = 3,875
 (* reverse: 'a list -> 'a list *)
 
 (* filter: ('a -> bool) -> 'a list -> 'a list *)
+
+
+(* TASK 4 *)
+
+datatype tree = Void | Node of tree * int * tree;
+
+fun comparing a b x = if x>=a andalso x<b then true else false; 
+
+ 
+
+fun sub_tree a b (Void) = Void
+	|sub_tree a b (Node (Void, x , Void)) = if (comparing a b x)
+												then
+													Node (Void, x, Void)
+												else
+													Void
+	| sub_tree a b (Node (l, x ,r)) = if(comparing a b x)
+										then
+											Node (sub_tree a b l, x , sub_tree a b r)
+										else
+											sub_tree a b r
+	| sub_tree a b (Node (Void, x ,r)) = if(comparing a b x)
+												then
+													Node (Void, x , sub_tree a b r)
+												else
+													sub_tree a b r
+	| sub_tree a b (Node (l, x ,Void)) = if(comparing a b x)
+												then
+													Node (sub_tree a b l, x , Void)
+												else
+													sub_tree a b l;
